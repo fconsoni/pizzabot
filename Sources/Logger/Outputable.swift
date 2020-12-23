@@ -8,11 +8,13 @@
 import Foundation
 
 public protocol Outputable {
-	func print(_ message: String)
+	func write(_ message: String)
 }
 
 public struct ConsoleOutput: Outputable {
-	public func print(_ message: String) {
+	public init() {}
+	
+	public func write(_ message: String) {
 		print(message)
 	}
 }

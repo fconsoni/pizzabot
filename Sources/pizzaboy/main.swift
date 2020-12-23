@@ -1,10 +1,10 @@
 import PizzaboyCore
-import Rainbow
+import Logger
 
 do {
 	try Pizzaboy().run()
 } catch PizzaboyError.missingParameter {
-	print("Error. ".red + "Trying to execute without all parameters needed")
+	Logger().log(error: PizzaboyError.missingParameter.description())
 } catch PizzaboyError.invalid(argument: let argument) {
-	print("Error. ".red + "Invalid argument format in: \(argument)")
+	Logger().log(error: argument)
 }

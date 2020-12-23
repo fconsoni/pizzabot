@@ -11,7 +11,7 @@ public enum PizzaboyError: Error {
 	case invalid(argument: String)
 	case missingParameter
 	
-	func description() -> String {
+	public func description() -> String {
 		switch self {
 		case .invalid(argument: let argument):
 			return "Invalid argument format of: \(argument)"

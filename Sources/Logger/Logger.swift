@@ -8,7 +8,7 @@
 import Foundation
 import Rainbow
 
-final class Logger {
+public final class Logger {
 	private let output: Outputable
 	
 	public init(output: Outputable = ConsoleOutput()) {
@@ -16,18 +16,18 @@ final class Logger {
 	}
 	
 	public func log(success: String) {
-		self.output.print("SUCCESS:   ".green.bold + success)
+		self.output.write("SUCCESS:   ".green.bold + success)
 	}
 	
 	public func log(message: String) {
-		self.output.print("MESSAGE:   ".white.bold + message)
+		self.output.write("MESSAGE:   ".white.bold + message)
 	}
 	
 	public func log(warning: String) {
-		self.output.print("WARNING:   ".yellow.bold + warning)
+		self.output.write("WARNING:   ".yellow.bold + warning)
 	}
 	
 	public func log(error: String) {
-		self.output.print("ERROR:   ".red.bold + error)
+		self.output.write("ERROR:   ".red.bold + error)
 	}
 }
