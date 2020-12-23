@@ -8,12 +8,12 @@
 import Foundation
 
 public enum PizzaboyError: Error {
-	case invalidArgument(argument: String)
+	case invalid(argument: String)
 	case missingParameter
 	
 	func description() -> String {
 		switch self {
-		case .invalidArgument(argument: let argument):
+		case .invalid(argument: let argument):
 			return "Invalid argument format of: \(argument)"
 		case .missingParameter:
 			return "Missing parameter"

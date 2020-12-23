@@ -7,20 +7,34 @@
 
 import Foundation
 import FunctionalUtils
-import Rainbow
+
+public struct PizzaboyConfiguration {
+	let argumentChecker: InputParameterCheckable
+	
+	public static var `default`: PizzaboyConfiguration {
+		return PizzaboyConfiguration(argumentChecker: InputParameterChecker())
+	}
+}
 
 public final class Pizzaboy {
 	private let argument: String?
+	private let config: PizzaboyConfiguration
 	
-	public init(arguments: [String] = CommandLine.arguments) {
+	public init(config: PizzaboyConfiguration = .default, arguments: [String] = CommandLine.arguments) {
+		self.config = config
 		self.argument = arguments.tail().first
 	}
 	
 	public func run() throws {
-		if self.argument.isEmpty() {
+		guard let argument = self.argument else {
 			throw PizzaboyError.missingParameter
-		} else {
-			throw PizzaboyError.invalidArgument(argument: self.argument!)
 		}
+		
+		if self.config.argumentChecker.isValid(argument) {
+			print("Todo bien")
+		} else {
+			throw PizzaboyError.invalid(argument: argument)
+		}
+		
 	}
 }

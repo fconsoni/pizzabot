@@ -14,9 +14,12 @@ let package = Package(
         .target(
             name: "pizzaboy",
             dependencies: [.target(name: "PizzaboyCore"),
-						   .target(name: "FunctionalUtils")]),
-		.target(name: "PizzaboyCore", dependencies: ["Rainbow"]),
+						   .target(name: "FunctionalUtils"),
+						   .target(name: "Logger")]),
+		.target(name: "PizzaboyCore", dependencies: [.target(name: "Logger")]),
 		.target(name: "FunctionalUtils"),
+		.target(name: "Logger",
+				dependencies: ["Rainbow"]),
         .testTarget(
             name: "pizzaboyTests",
             dependencies: ["pizzaboy"]),
