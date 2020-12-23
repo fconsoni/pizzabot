@@ -3,8 +3,8 @@ import Logger
 
 do {
 	try Pizzaboy().run()
-} catch PizzaboyError.missingParameter {
-	Logger().log(error: PizzaboyError.missingParameter.description())
-} catch PizzaboyError.invalid(argument: let argument) {
-	Logger().log(error: argument)
+} catch let error as PizzaboyError {
+	Logger().log(error: error.description())
+} catch {
+	Logger().log(error: error.localizedDescription)
 }

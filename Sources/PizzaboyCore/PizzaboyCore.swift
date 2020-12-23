@@ -35,6 +35,5 @@ public final class Pizzaboy {
 		} else {
 			throw PizzaboyError.invalid(argument: argument)
 		}
-		
 	}
 }

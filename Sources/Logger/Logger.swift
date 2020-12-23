@@ -16,18 +16,18 @@ public final class Logger {
 	}
 	
 	public func log(success: String) {
-		self.output.write("SUCCESS:   ".green.bold + success)
+		self.output.write("SUCCESS: ".green.bold + success)
 	}
 	
 	public func log(message: String) {
-		self.output.write("MESSAGE:   ".white.bold + message)
+		self.output.write("MESSAGE: ".white.bold + message)
 	}
 	
 	public func log(warning: String) {
-		self.output.write("WARNING:   ".yellow.bold + warning)
+		self.output.write("WARNING: ".yellow.bold + warning)
 	}
 	
 	public func log(error: String) {
-		self.output.write("ERROR:   ".red.bold + error)
+		self.output.write("ERROR: ".red.bold + error)
 	}
 }
