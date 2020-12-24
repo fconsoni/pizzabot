@@ -10,17 +10,16 @@ import FunctionalUtils
 
 protocol InputParameterCheckable {
 	func isValid(_ argument: String) -> Bool
+	func areValid(_ points: [Point], in grid: Grid) -> Bool
 }
 
 final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
-	private let parser: Parseable
-	
-	init(parser: Parseable = Parser()) {
-		self.parser = parser
-	}
-	
 	func isValid(_ argument: String) -> Bool {
 		return self.hasValidGrid(on: argument) && self.hasValidPoints(on: argument)
+	}
+	
+	func areValid(_ points: [Point], in grid: Grid) -> Bool {
+		return true
 	}
 	
 	//MARK:- grid validation

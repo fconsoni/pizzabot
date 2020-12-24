@@ -11,7 +11,8 @@ import XCTest
 
 final class PizzabotCoreTests: XCTestCase {
 	private func mockedConfig(allValid: Bool) -> PizzabotConfiguration {
-		return PizzabotConfiguration(argumentChecker: MockInputChecker(validateAll: allValid))
+		return PizzabotConfiguration(argumentChecker: MockInputChecker(validateAll: allValid),
+									 parameterRetriever: MockParametersRetriever())
 	}
 	
 	func testThatFailsWithLessArgumentsThatNeeded() {
@@ -42,7 +43,7 @@ final class PizzabotCoreTests: XCTestCase {
 	]
 }
 
-private class MockInputChecker: InputParameterCheckable {
+private final class MockInputChecker: InputParameterCheckable {
 	private let allValid: Bool
 	
 	init(validateAll val: Bool) {
@@ -53,7 +54,17 @@ private class MockInputChecker: InputParameterCheckable {
 		return self.allValid
 	}
 	
-	func retrieveGrid() -> Grid? {
-		return nil
+	func areValid(_ points: [Point], in grid: Grid) -> Bool {
+		return self.allValid
+	}
+}
+
+private final class MockParametersRetriever: InputParameterRetrievable {
+	func grid(from argument: String) -> Grid {
+		return Grid(rows: 0,columns: 0)
+	}
+	
+	func points(from argument: String) -> [Point] {
+		return []
 	}
 }

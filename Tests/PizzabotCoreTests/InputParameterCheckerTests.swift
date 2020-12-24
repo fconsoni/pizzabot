@@ -10,7 +10,7 @@ import XCTest
 @testable import PizzabotCore
 
 final class InputParameterCheckerTests: XCTestCase {
-	private let checker = InputParameterChecker(parser: MockParser())
+	private let checker = InputParameterChecker()
 	
 	func testThatLowercasedXCorrectArgumentIsValid() {
 		let argument = "5x5 (0,1) (1,2)"
