@@ -80,7 +80,7 @@ final class MockParser: Parseable {
 		return Grid(rows: 0,columns: 0)
 	}
 	
-	func points(from components: [String]) -> [CGPoint?] {
+	func points(from components: [String]) -> [Point] {
 		return []
 	}
 }

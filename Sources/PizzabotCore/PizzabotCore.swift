@@ -11,9 +11,11 @@ import Logger
 
 public struct PizzabotConfiguration {
 	let argumentChecker: InputParameterCheckable
+	let parameterRetriever: InputParameterRetrievable
 	
 	public static var `default`: PizzabotConfiguration {
-		return PizzabotConfiguration(argumentChecker: InputParameterChecker())
+		return PizzabotConfiguration(argumentChecker: InputParameterChecker(),
+									 parameterRetriever: InputParameterRetriever())
 	}
 }
 

@@ -10,10 +10,9 @@ import FunctionalUtils
 
 protocol InputParameterCheckable {
 	func isValid(_ argument: String) -> Bool
-	func retrieveGrid() -> Grid?
 }
 
-final class InputParameterChecker: InputParameterCheckable {
+final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
 	private let parser: Parseable
 	
 	init(parser: Parseable = Parser()) {
@@ -48,16 +47,5 @@ final class InputParameterChecker: InputParameterCheckable {
 		let hasTwoNumbers = pointComponent.separateBy("(,)").compactMap(Int.init).count == 2
 		
 		return hasTwoNumbers && pointComponent.last.fold(false, equalTo(Character(")")))
-	}
-	
-	//MARK:- components
-	private func components(of argument: String) -> [String] {
-		let trimmedComponents = argument.separateBy("(").map{ $0.trim() }
-		
-		return trimmedComponents.take(1) + trimmedComponents.tail().map{ "(\($0)" }
-	}
-	
-	func retrieveGrid() -> Grid? {
-		return .none
 	}
 }

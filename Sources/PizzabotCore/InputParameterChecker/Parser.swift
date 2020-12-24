@@ -10,7 +10,7 @@ import FunctionalUtils
 
 protocol Parseable {
 	func grid(from argument: String) -> Grid
-	func points(from components: [String]) -> [CGPoint?]
+	func points(from components: [String]) -> [Point]
 }
 
 final class Parser: Parseable {
@@ -21,7 +21,7 @@ final class Parser: Parseable {
 					columns: coordinates.last ?? 0)
 	}
 	
-	func points(from components: [String]) -> [CGPoint?] {
+	func points(from components: [String]) -> [Point] {
 		return []
 	}
 }
