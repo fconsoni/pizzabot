@@ -7,6 +7,7 @@
 
 import Foundation
 import FunctionalUtils
+import Logger
 
 public struct PizzaboyConfiguration {
 	let argumentChecker: InputParameterCheckable
@@ -30,8 +31,10 @@ public final class Pizzaboy {
 			throw PizzaboyError.missingParameter
 		}
 		
+		Logger().log(message: "checking argument format...")
+		
 		if self.config.argumentChecker.isValid(argument) {
-			print("Todo bien")
+			Logger().log(message: "valid")
 		} else {
 			throw PizzaboyError.invalid(argument: argument)
 		}

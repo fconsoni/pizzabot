@@ -10,8 +10,7 @@ import FunctionalUtils
 
 protocol Parseable {
 	func grid(from argument: String) -> Grid
-	func points(from argument: String) -> [CGPoint?]
-	func components(of argument: String) -> [String]
+	func points(from components: [String]) -> [CGPoint?]
 }
 
 final class Parser: Parseable {
@@ -22,13 +21,7 @@ final class Parser: Parseable {
 					columns: coordinates.last ?? 0)
 	}
 	
-	func points(from argument: String) -> [CGPoint?] {
+	func points(from components: [String]) -> [CGPoint?] {
 		return []
-	}
-	
-	func components(of argument: String) -> [String] {
-		let trimmedComponents = argument.separateBy("(").map{ $0.trim() }
-		
-		return trimmedComponents.take(1) + trimmedComponents.tail().map{ "(\($0)" }
 	}
 }

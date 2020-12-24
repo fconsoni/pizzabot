@@ -7,6 +7,7 @@
 
 import Foundation
 
+//SCALA based extension
 extension Optional {
 	public func get(_ error: Error? = nil) throws -> Wrapped {
 		switch self {

@@ -20,7 +20,7 @@ public final class Logger {
 	}
 	
 	public func log(message: String) {
-		self.output.write("MESSAGE: ".white.bold + message)
+		self.output.write("LOG: ".white.bold + message)
 	}
 	
 	public func log(warning: String) {
