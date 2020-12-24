@@ -20,8 +20,13 @@ let package = Package(
 		.target(name: "FunctionalUtils"),
 		.target(name: "Logger",
 				dependencies: ["Rainbow"]),
-        .testTarget(
+        
+		.testTarget(
             name: "pizzaboyTests",
             dependencies: ["pizzaboy"]),
+		.testTarget(
+			name: "PizzabotCoreTests",
+			dependencies: ["PizzaboyCore",
+						   "FunctionalUtils"]),
     ]
 )
