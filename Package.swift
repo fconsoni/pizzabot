@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "pizzaboy",
+    name: "pizzabot",
     dependencies: [
 		.package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0")
         // Dependencies declare other packages that this package depends on.
@@ -12,21 +12,21 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "pizzaboy",
-            dependencies: [.target(name: "PizzaboyCore"),
+            name: "pizzabot",
+            dependencies: [.target(name: "PizzabotCore"),
 						   .target(name: "FunctionalUtils"),
 						   .target(name: "Logger")]),
-		.target(name: "PizzaboyCore", dependencies: [.target(name: "Logger")]),
+		.target(name: "PizzabotCore", dependencies: [.target(name: "Logger")]),
 		.target(name: "FunctionalUtils"),
 		.target(name: "Logger",
 				dependencies: ["Rainbow"]),
         
 		.testTarget(
-            name: "pizzaboyTests",
-            dependencies: ["pizzaboy"]),
+            name: "pizzabotTests",
+            dependencies: ["pizzabot"]),
 		.testTarget(
 			name: "PizzabotCoreTests",
-			dependencies: ["PizzaboyCore",
+			dependencies: ["PizzabotCore",
 						   "FunctionalUtils"]),
     ]
 )

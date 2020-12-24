@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PizzaboyError: Error {
+public enum PizzabotError: Error {
 	case invalid(argument: String)
 	case missingParameter
 	

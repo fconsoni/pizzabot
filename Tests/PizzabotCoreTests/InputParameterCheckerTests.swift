@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-@testable import PizzaboyCore
+@testable import PizzabotCore
 
 final class InputParameterCheckerTests: XCTestCase {
 	private let checker = InputParameterChecker(parser: MockParser())

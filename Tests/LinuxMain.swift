@@ -1,8 +1,8 @@
 import XCTest
 
-import pizzaboyTests
+import pizzabotTests
 
 var tests = [XCTestCaseEntry]()
-tests += pizzaboyTests.allTests()
+tests += pizzabotTests.allTests()
 tests += InputParameterCheckerTests.allTests()
 XCTMain(tests)

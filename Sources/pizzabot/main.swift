@@ -1,9 +1,9 @@
-import PizzaboyCore
+import PizzabotCore
 import Logger
 
 do {
-	try Pizzaboy().run()
-} catch let error as PizzaboyError {
+	try Pizzabot().run()
+} catch let error as PizzabotError {
 	Logger().log(error: error.description())
 } catch {
 	Logger().log(error: error.localizedDescription)

@@ -1,5 +1,5 @@
 //
-//  PizzaboyCore.swift
+//  PizzabotCore.swift
 //  
 //
 //  Created by Franco Consoni on 22/12/2020.
@@ -9,26 +9,26 @@ import Foundation
 import FunctionalUtils
 import Logger
 
-public struct PizzaboyConfiguration {
+public struct PizzabotConfiguration {
 	let argumentChecker: InputParameterCheckable
 	
-	public static var `default`: PizzaboyConfiguration {
-		return PizzaboyConfiguration(argumentChecker: InputParameterChecker())
+	public static var `default`: PizzabotConfiguration {
+		return PizzabotConfiguration(argumentChecker: InputParameterChecker())
 	}
 }
 
-public final class Pizzaboy {
+public final class Pizzabot {
 	private let argument: String?
-	private let config: PizzaboyConfiguration
+	private let config: PizzabotConfiguration
 	
-	public init(config: PizzaboyConfiguration = .default, arguments: [String] = CommandLine.arguments) {
+	public init(config: PizzabotConfiguration = .default, arguments: [String] = CommandLine.arguments) {
 		self.config = config
 		self.argument = arguments.tail().first
 	}
 	
 	public func run() throws {
 		guard let argument = self.argument else {
-			throw PizzaboyError.missingParameter
+			throw PizzabotError.missingParameter
 		}
 		
 		Logger().log(message: "checking argument format...")
@@ -36,7 +36,7 @@ public final class Pizzaboy {
 		if self.config.argumentChecker.isValid(argument) {
 			Logger().log(message: "valid")
 		} else {
-			throw PizzaboyError.invalid(argument: argument)
+			throw PizzabotError.invalid(argument: argument)
 		}
 	}
 }
