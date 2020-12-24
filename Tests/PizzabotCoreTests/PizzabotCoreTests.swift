@@ -7,31 +7,40 @@
 
 import Foundation
 import XCTest
+import Logger
 @testable import PizzabotCore
 
 final class PizzabotCoreTests: XCTestCase {
-	private func mockedConfig(allValid: Bool) -> PizzabotConfiguration {
-		return PizzabotConfiguration(argumentChecker: MockInputChecker(validateAll: allValid),
-									 parameterRetriever: MockParametersRetriever())
+	private func mockedConfig(validArgument: Bool, validPoints: Bool) -> PizzabotConfiguration {
+		return PizzabotConfiguration(argumentChecker: MockInputChecker(validArgument: validArgument, validPoints: validPoints),
+									 parameterRetriever: MockParametersRetriever(),
+									 logger: Logger(output: MockOutput()))
 	}
 	
 	func testThatFailsWithLessArgumentsThatNeeded() {
 		let arguments = ["unusedToolName"]
-		let core = Pizzabot(config: mockedConfig(allValid: true), arguments: arguments)
+		let core = Pizzabot(config: mockedConfig(validArgument: false, validPoints: false), arguments: arguments)
 		
-		XCTAssertThrowsError(try core.run())
+		assert(try core.run(), throws: PizzabotError.missingParameter)
 	}
 	
 	func testThatFailsWithBadFormattedArgument() {
 		let arguments = ["unusedToolName", "badFormattedArgument"]
-		let core = Pizzabot(config: mockedConfig(allValid: false), arguments: arguments)
+		let core = Pizzabot(config: mockedConfig(validArgument: false, validPoints: false), arguments: arguments)
 		
-		XCTAssertThrowsError(try core.run())
+		assert(try core.run(), throws: PizzabotError.invalid(argument: arguments.last!))
+	}
+	
+	func testThatFailsWithPointsOutOfGrid() {
+		let arguments = ["unusedToolName", "wellFormattedArgument"]
+		let core = Pizzabot(config: mockedConfig(validArgument: true, validPoints: false), arguments: arguments)
+		
+		assert(try core.run(), throws: PizzabotError.pointOutOfGrid)
 	}
 	
 	func testThatDoesntFailWithCorrectArguments() {
 		let arguments = ["unusedToolName", "wellFormattedArgument"]
-		let core = Pizzabot(config: mockedConfig(allValid: true), arguments: arguments)
+		let core = Pizzabot(config: mockedConfig(validArgument: true, validPoints: true), arguments: arguments)
 		
 		XCTAssertNoThrow(try core.run())
 	}
@@ -40,22 +49,40 @@ final class PizzabotCoreTests: XCTestCase {
 		("testThatFailsWithLessArgumentsThatNeeded", testThatFailsWithLessArgumentsThatNeeded),
 		("testThatFailsWithBadFormattedArgument", testThatFailsWithBadFormattedArgument),
 		("testThatFailsWithLessArgumentsThatNeeded", testThatFailsWithLessArgumentsThatNeeded),
+		("testThatFailsWithPointsOutOfGrid", testThatFailsWithPointsOutOfGrid)
 	]
 }
 
+//Helps to test error types
+extension XCTestCase {
+	func assert<T, E: Error & Equatable>(_ expression: @autoclosure () throws -> T, throws error: E, in file: StaticString = #file, line: UInt = #line) {
+		var thrownError: Error?
+		
+		XCTAssertThrowsError(try expression(),file: file, line: line) {
+			thrownError = $0
+		}
+		
+		XCTAssertTrue(thrownError is E, "Unexpected error type: \(type(of: thrownError))", file: file, line: line)
+		XCTAssertEqual(thrownError as? E, error, file: file, line: line)
+	}
+}
+
+//MARK:- mocks
 private final class MockInputChecker: InputParameterCheckable {
-	private let allValid: Bool
+	private let validArgument: Bool
+	private let validPoints: Bool
 	
-	init(validateAll val: Bool) {
-		self.allValid = val
+	init(validArgument: Bool, validPoints: Bool) {
+		self.validArgument = validArgument
+		self.validPoints = validPoints
 	}
 	
 	func isValid(_ argument: String) -> Bool {
-		return self.allValid
+		return self.validArgument
 	}
 	
 	func areValid(_ points: [Point], in grid: Grid) -> Bool {
-		return self.allValid
+		return self.validPoints
 	}
 }
 
@@ -67,4 +94,8 @@ private final class MockParametersRetriever: InputParameterRetrievable {
 	func points(from argument: String) -> [Point] {
 		return []
 	}
+}
+
+private final class MockOutput: Outputable {
+	func write(_ message: String) {}
 }

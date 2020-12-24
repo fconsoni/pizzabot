@@ -25,6 +25,9 @@ let package = Package(
             name: "pizzabotTests",
             dependencies: ["pizzabot"]),
 		.testTarget(
+			name: "LoggerTests",
+			dependencies: ["Logger"]),
+		.testTarget(
 			name: "PizzabotCoreTests",
 			dependencies: ["PizzabotCore",
 						   "FunctionalUtils"]),

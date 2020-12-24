@@ -19,7 +19,7 @@ final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
 	}
 	
 	func areValid(_ points: [Point], in grid: Grid) -> Bool {
-		return true
+		return points.all(grid.isIn) && points.all(Point.isValid) && grid.isValid()
 	}
 	
 	//MARK:- grid validation

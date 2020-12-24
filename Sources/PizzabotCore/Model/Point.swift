@@ -11,6 +11,10 @@ public struct Point {
 	let x: Int
 	let y: Int
 	
+	func isValid() -> Bool {
+		return self.x >= 0 && self.y >= 0
+	}
+	
 	func distanceTo(_ otherPoint: Point) -> Float {
 		return abs(self.module() - otherPoint.module())
 	}

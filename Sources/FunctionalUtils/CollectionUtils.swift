@@ -50,6 +50,10 @@ extension Collection {
 		return self.lazy.allSatisfy(condition)
 	}
 	
+	public func all(_ condition: (Element) -> () -> Bool) -> Bool {
+		return self.lazy.map(condition).allSatisfy{ $0() }
+	}
+	
 	public func any(_ predicate: (Element) -> Bool)  -> Bool {
 		return self.filter(predicate).count > 0
 	}

@@ -12,6 +12,12 @@ import XCTest
 final class InputParameterCheckerTests: XCTestCase {
 	private let checker = InputParameterChecker()
 	
+	func testThatEmptyArgumentIsNotValid() {
+		let argument = ""
+		
+		XCTAssertFalse(checker.isValid(argument))
+	}
+	
 	func testThatLowercasedXCorrectArgumentIsValid() {
 		let argument = "5x5 (0,1) (1,2)"
 		
@@ -62,7 +68,43 @@ final class InputParameterCheckerTests: XCTestCase {
 		XCTAssertFalse(checker.isValid(argument))
 	}
 	
+	func testThatPointsOutOfBoundsAreNotValid() {
+		let points = [Point(x: 1, y: 4)]
+		let grid = Grid(rows: 3, columns: 3)
+		
+		XCTAssertFalse(checker.areValid(points, in: grid))
+	}
+	
+	func testThatNegativePointsAreNotValid() {
+		let points = [Point(x: -1, y: 4)]
+		let grid = Grid(rows: 3, columns: 3)
+		
+		XCTAssertFalse(checker.areValid(points, in: grid))
+	}
+	
+	func testThatPointsInBoundsAreValid() {
+		let points = [Point(x: 1, y: 3)]
+		let grid = Grid(rows: 3, columns: 3)
+		
+		XCTAssertTrue(checker.areValid(points, in: grid))
+	}
+	
+	func testThatPointsInTheEdgeAreValid() {
+		let points = [Point(x: 3, y: 3)]
+		let grid = Grid(rows: 3, columns: 3)
+		
+		XCTAssertTrue(checker.areValid(points, in: grid))
+	}
+	
+	func testThatNegativeGridIsNotValidValid() {
+		let points = [Point(x: 3, y: 3)]
+		let grid = Grid(rows: -3, columns: 3)
+		
+		XCTAssertFalse(checker.areValid(points, in: grid))
+	}
+	
 	static var allTests = [
+		("testThatEmptyArgumentIsNotValid", testThatEmptyArgumentIsNotValid),
 		("testThatLowercasedXCorrectArgumentIsValid", testThatLowercasedXCorrectArgumentIsValid),
 		("testThatUppercasedXCorrectArgumentIsValid", testThatUppercasedXCorrectArgumentIsValid),
 		("testThatArgumentWithoutMatrixIsNotValid", testThatArgumentWithoutMatrixIsNotValid),
@@ -71,16 +113,10 @@ final class InputParameterCheckerTests: XCTestCase {
 		("testThatLettersInArgumentIsNotValid", testThatLettersInArgumentIsNotValid),
 		("testThatLettersInPointsIsNotValid", testThatLettersInPointsIsNotValid),
 		("testThatLettersInMatrixIsNotValid", testThatLettersInMatrixIsNotValid),
+		("testThatPointsOutOfBoundsAreNotValid", testThatPointsOutOfBoundsAreNotValid),
+		("testThatNegativePointsAreNotValid", testThatNegativePointsAreNotValid),
+		("testThatPointsInBoundsAreValid", testThatPointsInBoundsAreValid),
+		("testThatPointsInTheEdgeAreValid", testThatPointsInTheEdgeAreValid),
+		("testThatNegativeGridIsNotValidValid", testThatNegativeGridIsNotValidValid)
 	]
-}
-
-
-final class MockParser: Parseable {
-	func grid(from argument: String) -> Grid {
-		return Grid(rows: 0,columns: 0)
-	}
-	
-	func points(from components: [String]) -> [Point] {
-		return []
-	}
 }
