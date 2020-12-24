@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Point {
+public struct Point: Equatable {
 	let x: Int
 	let y: Int
 	
@@ -21,5 +21,11 @@ public struct Point {
 	
 	private func module() -> Float {
 		return sqrt(Float(x^2 + y^2))
+	}
+	
+	//SCALA-based copy method
+	func copy(x: Int? = .none, y: Int? = .none) -> Point {
+		return Point(x: x.getOrElse(self.x),
+					 y: y.getOrElse(self.y))
 	}
 }

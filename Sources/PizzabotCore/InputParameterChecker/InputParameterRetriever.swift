@@ -29,7 +29,7 @@ final class InputParameterRetriever: InputParameterRetrievable, ArgumentSplittab
 	}
 	
 	private func makePoint(from component: String) -> Point {
-		let coordinates = component.components(separatedBy: CharacterSet(charactersIn: "(,)")).compactMap(Int.init)
+		let coordinates = component.components(separatedBy: CharacterSet(charactersIn: "(,)")).map(String.trim).compactMap(Int.init)
 		
 		return Point(x: coordinates.first ?? 0,
 					 y: coordinates.last ?? 0)

@@ -43,7 +43,7 @@ final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
 	}
 	
 	private func isValidPoint(_ pointComponent: String) -> Bool {
-		let hasTwoNumbers = pointComponent.separateBy("(,)").compactMap(Int.init).count == 2
+		let hasTwoNumbers = pointComponent.separateBy("(,)").map(String.trim).compactMap(Int.init).count == 2
 		
 		return hasTwoNumbers && pointComponent.last.fold(false, equalTo(Character(")")))
 	}

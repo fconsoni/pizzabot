@@ -12,12 +12,16 @@ import Logger
 public struct PizzabotConfiguration {
 	let argumentChecker: InputParameterCheckable
 	let parameterRetriever: InputParameterRetrievable
+	let deliverier: Deliverable
 	let logger: Logger
 	
 	public static var `default`: PizzabotConfiguration {
+		let defaultLogger = Logger()
+		
 		return PizzabotConfiguration(argumentChecker: InputParameterChecker(),
 									 parameterRetriever: InputParameterRetriever(),
-									 logger: Logger())
+									 deliverier: PizzabotDeliverier(logger: defaultLogger),
+									 logger: defaultLogger)
 	}
 }
 
@@ -51,7 +55,7 @@ public final class Pizzabot {
 		let points = self.config.parameterRetriever.points(from: argument)
 		
 		if self.config.argumentChecker.areValid(points, in: grid) {
-			self.config.logger.log(success: "Grid and points parsed succesfully!")
+			self.config.logger.log(message: "Grid and points parsed succesfully!")
 			
 			self.deliver(to: points, in: grid)
 		} else {
@@ -60,6 +64,8 @@ public final class Pizzabot {
 	}
 	
 	private func deliver(to points: [Point], in grid: Grid) {
-		self.config.logger.log(message: "Attempting to parse parameters")
+		self.config.logger.log(message: "Starting pizza delivery")
+		
+		self.config.deliverier.deliver(to: points, in: grid)
 	}
 }

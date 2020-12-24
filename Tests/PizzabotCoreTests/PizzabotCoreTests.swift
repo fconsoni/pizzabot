@@ -14,6 +14,7 @@ final class PizzabotCoreTests: XCTestCase {
 	private func mockedConfig(validArgument: Bool, validPoints: Bool) -> PizzabotConfiguration {
 		return PizzabotConfiguration(argumentChecker: MockInputChecker(validArgument: validArgument, validPoints: validPoints),
 									 parameterRetriever: MockParametersRetriever(),
+									 deliverier: MockDeliverier(),
 									 logger: Logger(output: MockOutput()))
 	}
 	
@@ -93,6 +94,12 @@ private final class MockParametersRetriever: InputParameterRetrievable {
 	
 	func points(from argument: String) -> [Point] {
 		return []
+	}
+}
+
+private final class MockDeliverier: Deliverable {
+	func deliver(to points: [Point], in grid: Grid) {
+		
 	}
 }
 

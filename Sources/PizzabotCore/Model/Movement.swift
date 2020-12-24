@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Movement {
+enum Movement: CaseIterable {
 	case north
 	case east
 	case south
