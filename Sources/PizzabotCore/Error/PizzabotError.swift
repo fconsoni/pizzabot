@@ -10,6 +10,7 @@ import Foundation
 public enum PizzabotError: Error {
 	case invalid(argument: String)
 	case missingParameter
+	case pointOutOfGrid(point: Point)
 	
 	public func description() -> String {
 		switch self {
@@ -17,6 +18,8 @@ public enum PizzabotError: Error {
 			return "Invalid argument format of: \"\(argument)\""
 		case .missingParameter:
 			return "Missing parameter"
+		case .pointOutOfGrid(let point):
+			return "Point: (\(point.x),\(point.y) is out of the grid bounds"
 		}
 	}
 }
