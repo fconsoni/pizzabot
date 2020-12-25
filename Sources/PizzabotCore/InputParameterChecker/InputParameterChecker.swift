@@ -10,7 +10,7 @@ import FunctionalUtils
 
 protocol InputParameterCheckable {
 	func isValid(_ argument: String) -> Bool
-	func areValid(_ points: [Point], in grid: Grid) -> Bool
+	func isValid(grid: Grid) -> Bool
 }
 
 final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
@@ -18,8 +18,8 @@ final class InputParameterChecker: InputParameterCheckable, ArgumentSplittable {
 		return self.hasValidGrid(on: argument) && self.hasValidPoints(on: argument)
 	}
 	
-	func areValid(_ points: [Point], in grid: Grid) -> Bool {
-		return points.all(grid.isIn) && points.all(Point.isValid) && grid.isValid()
+	func isValid(grid: Grid) -> Bool {
+		return grid.isValid()
 	}
 	
 	//MARK:- grid validation

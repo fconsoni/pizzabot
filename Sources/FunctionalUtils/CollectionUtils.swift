@@ -65,6 +65,12 @@ extension Collection where Element: AdditiveArithmetic {
 	}
 }
 
+extension Collection where Element == Bool {
+	public func all() -> Bool {
+		return self.lazy.allSatisfy{ $0 }
+	}
+}
+
 extension Array {
 	public func take(_ number: Int) -> [Element] {
 		let index = Swift.min(number, self.count)

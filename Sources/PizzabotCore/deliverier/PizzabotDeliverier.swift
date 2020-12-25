@@ -10,7 +10,7 @@ import FunctionalUtils
 import Logger
 
 protocol Deliverable {
-	func deliver(to points: [Point], in grid: Grid)
+	func deliver(in grid: Grid)
 }
 
 final class PizzabotDeliverier: Deliverable {
@@ -26,8 +26,8 @@ final class PizzabotDeliverier: Deliverable {
 		self.logger = logger
 	}
 	
-	func deliver(to points: [Point], in grid: Grid) {
-		self.pendingPoints = points
+	func deliver(in grid: Grid) {
+		self.pendingPoints = grid.pendingPoints
 		
 		self.chooseNextPoint(in: grid)
 	}

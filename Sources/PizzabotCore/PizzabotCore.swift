@@ -52,20 +52,19 @@ public final class Pizzabot {
 		self.config.logger.log(message: "Attempting to parse parameters")
 		
 		let grid = self.config.parameterRetriever.grid(from: argument)
-		let points = self.config.parameterRetriever.points(from: argument)
 		
-		if self.config.argumentChecker.areValid(points, in: grid) {
+		if self.config.argumentChecker.isValid(grid: grid) {
 			self.config.logger.log(message: "Grid and points parsed succesfully!")
 			
-			self.deliver(to: points, in: grid)
+			self.deliverPizza(to: grid)
 		} else {
 			throw PizzabotError.pointOutOfGrid
 		}
 	}
 	
-	private func deliver(to points: [Point], in grid: Grid) {
+	private func deliverPizza(to grid: Grid) {
 		self.config.logger.log(message: "Starting pizza delivery")
 		
-		self.config.deliverier.deliver(to: points, in: grid)
+		self.config.deliverier.deliver(in: grid)
 	}
 }

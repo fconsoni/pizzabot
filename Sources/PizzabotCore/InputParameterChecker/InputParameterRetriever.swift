@@ -9,7 +9,6 @@ import Foundation
 
 protocol InputParameterRetrievable {
 	func grid(from argument: String) -> Grid
-	func points(from argument: String) -> [Point]
 }
 
 final class InputParameterRetriever: InputParameterRetrievable, ArgumentSplittable {
@@ -20,11 +19,12 @@ final class InputParameterRetriever: InputParameterRetrievable, ArgumentSplittab
 			.compactMap(Int.init)
 		
 		return Grid(rows: coordinates.first ?? 0,
-					columns: coordinates.last ?? 0)
+					columns: coordinates.last ?? 0,
+					pendingPoints: self.points(from: argument))
 	}
 	
 	//MARK:- points
-	func points(from argument: String) -> [Point] {
+	private func points(from argument: String) -> [Point] {
 		return self.pointsComponents(of: argument).map(makePoint(from:))
 	}
 	

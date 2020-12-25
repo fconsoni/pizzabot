@@ -70,37 +70,37 @@ final class InputParameterCheckerTests: XCTestCase {
 	
 	func testThatPointsOutOfBoundsAreNotValid() {
 		let points = [Point(x: 1, y: 4)]
-		let grid = Grid(rows: 3, columns: 3)
+		let grid = Grid(rows: 3, columns: 3, pendingPoints: points)
 		
-		XCTAssertFalse(checker.areValid(points, in: grid))
+		XCTAssertFalse(checker.isValid(grid: grid))
 	}
 	
 	func testThatNegativePointsAreNotValid() {
 		let points = [Point(x: -1, y: 4)]
-		let grid = Grid(rows: 3, columns: 3)
+		let grid = Grid(rows: 3, columns: 3, pendingPoints: points)
 		
-		XCTAssertFalse(checker.areValid(points, in: grid))
+		XCTAssertFalse(checker.isValid(grid: grid))
 	}
 	
 	func testThatPointsInBoundsAreValid() {
 		let points = [Point(x: 1, y: 3)]
-		let grid = Grid(rows: 3, columns: 3)
+		let grid = Grid(rows: 3, columns: 3, pendingPoints: points)
 		
-		XCTAssertTrue(checker.areValid(points, in: grid))
+		XCTAssertTrue(checker.isValid(grid: grid))
 	}
 	
 	func testThatPointsInTheEdgeAreValid() {
 		let points = [Point(x: 3, y: 3)]
-		let grid = Grid(rows: 3, columns: 3)
+		let grid = Grid(rows: 3, columns: 3, pendingPoints: points)
 		
-		XCTAssertTrue(checker.areValid(points, in: grid))
+		XCTAssertTrue(checker.isValid(grid: grid))
 	}
 	
 	func testThatNegativeGridIsNotValidValid() {
 		let points = [Point(x: 3, y: 3)]
-		let grid = Grid(rows: -3, columns: 3)
+		let grid = Grid(rows: -3, columns: 3, pendingPoints: points)
 		
-		XCTAssertFalse(checker.areValid(points, in: grid))
+		XCTAssertFalse(checker.isValid(grid: grid))
 	}
 	
 	static var allTests = [

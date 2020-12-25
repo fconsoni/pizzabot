@@ -82,24 +82,19 @@ private final class MockInputChecker: InputParameterCheckable {
 		return self.validArgument
 	}
 	
-	func areValid(_ points: [Point], in grid: Grid) -> Bool {
+	func isValid(grid: Grid) -> Bool {
 		return self.validPoints
 	}
 }
 
 private final class MockParametersRetriever: InputParameterRetrievable {
 	func grid(from argument: String) -> Grid {
-		return Grid(rows: 0,columns: 0)
-	}
-	
-	func points(from argument: String) -> [Point] {
-		return []
+		return Grid(rows: 0,columns: 0, pendingPoints: [])
 	}
 }
 
 private final class MockDeliverier: Deliverable {
-	func deliver(to points: [Point], in grid: Grid) {
-		
+	func deliver(in grid: Grid) {
 	}
 }
 
