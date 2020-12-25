@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FunctionalUtils
 
 public struct Point: Equatable {
 	let x: Int
@@ -16,11 +17,11 @@ public struct Point: Equatable {
 	}
 	
 	func distanceTo(_ otherPoint: Point) -> Float {
-		return abs(self.module() - otherPoint.module())
+		return Point(x: otherPoint.x - self.x, y: otherPoint.y - self.y).module()
 	}
 	
 	private func module() -> Float {
-		return sqrt(Float(x^2 + y^2))
+		return sqrt(x ** 2 + y ** 2)
 	}
 	
 	//SCALA-based copy method

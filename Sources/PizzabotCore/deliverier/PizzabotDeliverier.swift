@@ -34,12 +34,13 @@ final class PizzabotDeliverier: Deliverable {
 	
 	private func chooseNextPoint(in grid: Grid) {
 		if let nearestPoint = self.pendingPoints.sorted(by: { p1, p2 in p1.distanceTo(currentPosition) < p2.distanceTo(currentPosition) }).first {
+			self.logger.log(message: "Moving to: (\(nearestPoint.x), \(nearestPoint.y))")
 			self.moveTo(nearestPoint)
 			
 			self.chooseNextPoint(in: grid)
 		} else {
-			self.logger.log(success: "Delivery completed successfully")
-			self.logger.log(message: "path -->  " + self.movements.map(Movement.code).joined())
+			self.logger.log(success: "Delivery completed successfully!")
+			self.logger.log(success: self.movements.map(Movement.code).joined())
 		}
 	}
 	
@@ -53,7 +54,9 @@ final class PizzabotDeliverier: Deliverable {
 			if movement != .drop {
 				self.moveTo(nearestPoint)
 			} else {
-				self.pendingPoints = self.pendingPoints.filter(not << equalTo(nearestPoint))
+				self.pendingPoints.firstIndex(of: nearestPoint).onValue { index in
+					self.pendingPoints.remove(at: index)
+				}
 			}
 		}
 	}

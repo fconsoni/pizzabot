@@ -7,8 +7,6 @@
 
 import Foundation
 
-public let π = Double.pi
-
 //MARK:- generic public functions
 public func identity<T>(_ any: T) -> T {
 	return any
@@ -164,4 +162,21 @@ public func << <T,U,V>(_ f: @escaping (U) -> V, _ keyPath: KeyPath<T, U>) -> (T)
 
 public func << <T,U,V>(_ f: @escaping (U) -> V, _ g: @escaping (T) -> () -> (U)) -> (T) -> V {
 	return { f(g($0)()) }
+}
+
+//MARK:- mathematic tools
+public let π = Double.pi
+
+precedencegroup PowPrecedence {
+	associativity: left
+	higherThan: MultiplicationPrecedence
+}
+
+infix operator **: PowPrecedence
+public func ** (_ base: Float, _ power: Float) -> Float {
+	return pow(base, power)
+}
+
+public func ** (_ base: Int, _ power: Int) -> Float {
+	return pow(Float(base), Float(power))
 }
