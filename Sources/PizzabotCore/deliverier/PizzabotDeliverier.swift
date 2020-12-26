@@ -84,6 +84,3 @@ final class PizzabotDeliverier: Deliverable {
 		}
 	}
 }
-
-//Haskell-based composition operator, read in the same direction (from right to left)
-infix operator <<: CompositionPrecedence

@@ -7,15 +7,7 @@
 
 import Foundation
 
-//SCALA based extension
 extension Optional {
-	public func isEmpty() -> Bool {
-		switch self {
-		case .some(_): return false
-		case .none: return true
-		}
-	}
-	
 	public func fold<U>(_ ifEmpty: U, _ tx : (Wrapped) -> U) -> U {
 		switch self {
 		case .some(let value): return tx(value)

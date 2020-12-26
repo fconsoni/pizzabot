@@ -11,10 +11,6 @@ extension Sequence {
 	public func map<T>(_ fx: (Element) -> () -> T) -> [T] {
 		return lazy.map(fx).map{ $0() }
 	}
-	
-	public func filter(_ fx: (Element) -> () -> Bool) -> [Element] {
-		return lazy.filter{ fx($0)() }
-	}
 }
 
 extension Collection {
@@ -24,10 +20,6 @@ extension Collection {
 	
 	public func all(_ condition: (Element) -> () -> Bool) -> Bool {
 		return self.lazy.map(condition).allSatisfy{ $0() }
-	}
-	
-	public func any(_ predicate: (Element) -> Bool)  -> Bool {
-		return self.filter(predicate).count > 0
 	}
 }
 
@@ -50,17 +42,9 @@ extension Array {
 			return Array(self.suffix(self.count - 1))
 		}
 	}
-	
-	public func flatten<T>() -> [T] where Element == T? {
-		return self.compactMap(identity)
-	}
 }
 
 extension String {
-	public func lines() -> [String] {
-		return separateBy("\n")
-	}
-	
 	public func words() -> [String] {
 		return separateBy(" ")
 	}
@@ -71,22 +55,5 @@ extension String {
 	
 	public func trim() -> String {
 		return self.trimmingCharacters(in: CharacterSet.whitespaces)
-	}
-	
-	public func take(_ number: Int) -> String {
-		let index = Swift.min(number, self.count)
-		return String(self.prefix(index))
-	}
-	
-	public func tail() -> String {
-		if self.isEmpty {
-			return ""
-		} else {
-			return String(self.suffix(self.count - 1))
-		}
-	}
-	
-	public func drop(_ number: Int) -> String {
-		return String(self.dropLast(number))
 	}
 }
