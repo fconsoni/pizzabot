@@ -15,28 +15,25 @@ protocol Deliverable {
 
 final class PizzabotDeliverier: Deliverable {
 	private var currentPosition: Point
-	private var pendingPoints: [Point]
 	private var movements: [Movement]
 	private var logger: Logger
 	
 	init(logger: Logger) {
 		self.currentPosition = Point(x: 0, y: 0)
-		self.pendingPoints = []
 		self.movements = []
 		self.logger = logger
 	}
 	
 	func deliver(in grid: Grid) {
-		self.pendingPoints = grid.pendingPoints
-		
 		self.chooseNextPoint(in: grid)
 	}
 	
 	private func chooseNextPoint(in grid: Grid) {
-		if let nearestPoint = self.pendingPoints.sorted(by: { p1, p2 in p1.distanceTo(currentPosition) < p2.distanceTo(currentPosition) }).first {
+		if let nearestPoint = grid.nearestPoint(to: self.currentPosition) {
 			self.logger.log(message: "Moving to: (\(nearestPoint.x), \(nearestPoint.y))")
 			self.moveTo(nearestPoint)
 			
+			grid.visited(point: nearestPoint)
 			self.chooseNextPoint(in: grid)
 		} else {
 			self.logger.log(success: "Delivery completed successfully!")
@@ -53,10 +50,6 @@ final class PizzabotDeliverier: Deliverable {
 			
 			if movement != .drop {
 				self.moveTo(nearestPoint)
-			} else {
-				self.pendingPoints.firstIndex(of: nearestPoint).onValue { index in
-					self.pendingPoints.remove(at: index)
-				}
 			}
 		}
 	}
