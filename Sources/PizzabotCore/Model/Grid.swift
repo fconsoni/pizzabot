@@ -9,9 +9,9 @@ import Foundation
 import FunctionalUtils
 
 final class Grid {
-	private let rows: Int
-	private let columns: Int
-	private var pendingPoints: [Point]
+	private(set) var rows: Int
+	private(set) var columns: Int
+	private(set) var pendingPoints: [Point]
 	
 	init(rows: Int, columns: Int, pendingPoints: [Point]) {
 		self.rows = rows
